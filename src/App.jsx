@@ -1,7 +1,9 @@
 import './App.css'
+import { useState } from 'react'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import ProductGrid from './components/ProductGrid'
+import Filters from './components/Filters'
+import Products from './components/Products'
 
 const products = [
   { id: 1, title: 'Smartphone', price: 599.99, image: 'https://via.placeholder.com/150' },
@@ -11,10 +13,31 @@ const products = [
 ]
 
 function App() {
+  const [filteredProducts, setFilteredProducts] = useState(products);
+
+  const showFilteredProducts = () => {
+    const filtered = products.filter(product => product.price < 500);
+    setFilteredProducts(filtered);
+  };
+
+  const showAllProducts = () => {
+    setFilteredProducts(products);
+  };
+
+  const handleFilter = (filterTYpe) => {
+    if (filterTYpe === 'UNDER_500') {
+      showFilteredProducts();
+    }
+    else {
+      showAllProducts();
+    }
+  }
+
   return <div className='flex flex-col min-h-screen'>
     <Header />
-    <main className='grow flex items-center justify-center'>
-      <ProductGrid products={products} />
+    <main className='grow flex bg-gray-100'>
+      <Filters onFilter={handleFilter} />
+      <Products />
     </main>
     <p><Footer /></p>
   </div>
