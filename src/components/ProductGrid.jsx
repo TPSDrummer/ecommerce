@@ -1,6 +1,24 @@
 import PropTypes from 'prop-types';
 
-export default function ProductGrid({ products }) {
+function SkeletonProductGrid() {
+    return (
+        <div className='w-3/4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4'>
+            {[...Array(6)].map((_, i) => (
+                <div key={i} className='p-4 bg-white rounded shadow animate-pulse'>
+                    <div className='h-40 bg-gray-200 mb-4 rounded' />
+                    <div className='h-4 bg-gray-200 mb-2 w-3/4 rounded' />
+                    <div className='h-4 bg-gray-200 w-1/2 rounded' />
+                </div>
+            ))}
+        </div>
+    );
+}
+
+export default function ProductGrid({ products, loading }) {
+    if (loading) {
+        return <SkeletonProductGrid />
+    }
+
     return <div className="w-3/4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {products.map(product => (
             <div key={product.id} className="border p-4 rounded-md shadow-md">
@@ -19,4 +37,5 @@ ProductGrid.propTypes = {
         price: PropTypes.number.isRequired,
         image: PropTypes.string.isRequired,
     })).isRequired,
+    loadin: PropTypes.bool
 }
