@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router';
 
 function SkeletonProductGrid() {
     return (
@@ -19,13 +20,17 @@ export default function ProductGrid({ products, loading }) {
         return <SkeletonProductGrid />
     }
 
+    if (!products || products.length === 0) {
+        return <div className="w-3/4 p-4">No products found.</div>;
+    }
+
     return <div className="w-3/4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {products.map(product => (
-            <div key={product.id} className="border p-4 rounded-md shadow-md">
+            <NavLink key={product.id} to={`/product/${product.id}`} className="border p-4 rounded-md shadow-md hover:shadow-lg transition-shadow">
                 <img src={product.image} alt={product.title} className="w-full h-48 object-cover mb-4" />
                 <h2 className="text-lg font-semibold">{product.title}</h2>
                 <p className="text-gray-600">${product.price.toFixed(2)}</p>
-            </div>
+            </NavLink>
         ))}
     </div>
 }
@@ -36,6 +41,6 @@ ProductGrid.propTypes = {
         title: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         image: PropTypes.string.isRequired,
-    })).isRequired,
-    loadin: PropTypes.bool
+    })),
+    loading: PropTypes.bool
 }

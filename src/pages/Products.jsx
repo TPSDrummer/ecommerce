@@ -1,12 +1,12 @@
-import ProductGrid from "./ProductGrid"
-import Filters from './Filters';
+import ProductGrid from "../components/ProductGrid"
+import Filters from '../components/Filters';
 import { useState } from "react";
 import { useProducts } from "../hooks/useProducts";
 
-const fetchProducts = async ({ queryKey }) => {
-    const [key, filters] = queryKey;
+//const fetchProducts = async ({ queryKey }) => {
+//    const [key, filters] = queryKey;
 
-};
+//};
 
 export default function Products() {
     const [filters, setFilters] = useState({

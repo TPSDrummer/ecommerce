@@ -66,7 +66,7 @@ export default function Filters({ filters, onFilter }) {
     </aside>
 }
 
-Filters.prototypes = {
+Filters.propTypes = {
     filters: PropTypes.shape({
         category: PropTypes.string,
         sort: PropTypes.string,
